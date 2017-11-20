@@ -17,11 +17,11 @@ function error_exit
 }
 
 # Check for cluster name as first (and only) arg
-CLUSTER_NAME=${1-imager}
-NUM_NODES=3
-MACHINE_TYPE=n1-standard-1
+CLUSTER_NAME=${1-jenkins-blue}
+NUM_NODES=1
+MACHINE_TYPE=n1-standard-4
 NETWORK=default
-ZONE=us-central1-f
+ZONE=europe-west1-d
 
 # Source the config
 . images.cfg
@@ -46,24 +46,24 @@ echo "done."
 
 echo "Getting Jenkins artifacts"
 if [ ! -d continuous-deployment-on-kubernetes ]; then
-  git clone https://github.com/GoogleCloudPlatform/continuous-deployment-on-kubernetes
+  git clone https://github.com/ndonthiNLI/continuous-deployment-on-kubernetes.git
 fi
 
 echo "Deploying Jenkins to Google Container Engine..."
 pushd continuous-deployment-on-kubernetes
 
-if ! gcloud compute images describe jenkins-home-image > /dev/null 2>&1; then
+if ! gcloud compute images describe jenkins-home-image-blue > /dev/null 2>&1; then
   echo "* Creating Jenkins home image"
-  gcloud compute images create jenkins-home-image --source-uri https://storage.googleapis.com/solutions-public-assets/jenkins-cd/jenkins-home-v2.tar.gz
+  gcloud compute images create jenkins-home-image-blue --source-uri https://storage.googleapis.com/solutions-public-assets/jenkins-cd/jenkins-home-v3.tar.gz
 else
   echo "* Jenkins home image already exists"
 fi
 
-if ! gcloud compute disks describe jenkins-home --zone ${ZONE} > /dev/null 2>&1; then
-  echo "* Creating Jenkins home disk"
-  gcloud compute disks create jenkins-home --image jenkins-home-image --zone ${ZONE}
+if ! gcloud compute disks describe jenkins-home-blue --zone ${ZONE} > /dev/null 2>&1; then
+  echo "* Creating Jenkins home blue disk"
+  gcloud compute disks create jenkins-home-blue --image jenkins-home-image-blue --zone ${ZONE}
 else
-  echo "* Jenkins home disk already exists"
+  echo "* Jenkins home blue disk already exists"
 fi
 
 PASSWORD=`openssl rand -base64 15`; echo "Your Jenkins password is $PASSWORD"; sed -i.bak s#CHANGE_ME#$PASSWORD# jenkins/k8s/options
