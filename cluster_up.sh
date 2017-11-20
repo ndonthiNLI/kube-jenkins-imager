@@ -20,7 +20,7 @@ function error_exit
 CLUSTER_NAME=${1-jenkins-blue}
 NUM_NODES=1
 MACHINE_TYPE=n1-standard-4
-NETWORK=jenkins
+NETWORK=default
 ZONE=europe-west1-d
 
 # Source the config
