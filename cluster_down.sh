@@ -11,14 +11,14 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-CLUSTER_NAME=${1-imager}
+CLUSTER_NAME=${1-jenkins-blue}
 ZONE=us-central1-f
 
 # Delete cluster
 gcloud container clusters delete --quiet ${CLUSTER_NAME} --zone ${ZONE}
 
 # Delete disk
-gcloud compute disks delete jenkins-home --zone ${ZONE}
+gcloud compute disks delete jenkins-home-blue --zone ${ZONE}
 
 # Delete image
-gcloud compute images delete jenkins-home-image
+gcloud compute images delete jenkins-home-image-blue
