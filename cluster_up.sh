@@ -54,7 +54,7 @@ pushd continuous-deployment-on-kubernetes
 
 if ! gcloud compute images describe jenkins-home-image-blue > /dev/null 2>&1; then
   echo "* Creating Jenkins home image"
-  gcloud compute images create jenkins-home-image-blue --source-uri https://storage.googleapis.com/solutions-public-assets/jenkins-cd/jenkins-home-v3.tar.gz
+  gcloud compute images create jenkins-home-image-blue --source-uri https://storage.googleapis.com/solutions-public-assets/jenkins-cd/jenkins-home-v2.tar.gz
 else
   echo "* Jenkins home image already exists"
 fi
