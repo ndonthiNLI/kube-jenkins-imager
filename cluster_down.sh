@@ -18,7 +18,7 @@ ZONE=us-central1-f
 gcloud container clusters delete --quiet ${CLUSTER_NAME} --zone ${ZONE}
 
 # Delete disk
-gcloud compute disks delete jenkins-home-blue --zone ${ZONE}
+gcloud compute disks delete jenkins-home-gelb --zone ${ZONE}
 
 # Delete image
-gcloud compute images delete jenkins-home-image-blue
+gcloud compute images delete jenkins-home-image-gelb
