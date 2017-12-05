@@ -17,10 +17,10 @@ function error_exit
 }
 
 # Check for cluster name as first (and only) arg
-CLUSTER_NAME=${1-jenkins-blue}
+CLUSTER_NAME=${1-jenkins-gelb}
 NUM_NODES=1
 MACHINE_TYPE=n1-standard-4
-NETWORK=default
+NETWORK=gcp-net01
 ZONE=europe-west1-d
 
 # Source the config
