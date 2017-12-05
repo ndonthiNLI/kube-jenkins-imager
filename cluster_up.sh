@@ -52,18 +52,18 @@ fi
 echo "Deploying Jenkins to Google Container Engine..."
 pushd continuous-deployment-on-kubernetes
 
-if ! gcloud compute images describe jenkins-home-image-blue > /dev/null 2>&1; then
+if ! gcloud compute images describe jenkins-home-image-gelb > /dev/null 2>&1; then
   echo "* Creating Jenkins home image"
-  gcloud compute images create jenkins-home-image-blue --source-uri https://storage.googleapis.com/solutions-public-assets/jenkins-cd/jenkins-home-v2.tar.gz
+  gcloud compute images create jenkins-home-image-gelb --source-uri https://storage.googleapis.com/solutions-public-assets/jenkins-cd/jenkins-home-v2.tar.gz
 else
   echo "* Jenkins home image already exists"
 fi
 
-if ! gcloud compute disks describe jenkins-home-blue --zone ${ZONE} > /dev/null 2>&1; then
+if ! gcloud compute disks describe jenkins-home-gelb --zone ${ZONE} > /dev/null 2>&1; then
   echo "* Creating Jenkins home blue disk"
-  gcloud compute disks create jenkins-home-blue --image jenkins-home-image-blue --zone ${ZONE}
+  gcloud compute disks create jenkins-home-gelb --image jenkins-home-image-gelb --zone ${ZONE}
 else
-  echo "* Jenkins home blue disk already exists"
+  echo "* Jenkins home gelb disk already exists"
 fi
 
 PASSWORD=`openssl rand -base64 15`; echo "Your Jenkins password is $PASSWORD"; sed -i.bak s#CHANGE_ME#$PASSWORD# jenkins/k8s/options
