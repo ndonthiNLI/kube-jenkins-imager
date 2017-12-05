@@ -20,7 +20,8 @@ function error_exit
 CLUSTER_NAME=${1-jenkins-gelb}
 NUM_NODES=1
 MACHINE_TYPE=n1-standard-4
-NETWORK=net01-subnet101-1
+NETWORK=gcp-net01
+SUBNETWORK=net01-subnet101-1
 ZONE=europe-west1-d
 
 # Source the config
@@ -34,6 +35,7 @@ if ! gcloud container clusters describe ${CLUSTER_NAME} > /dev/null 2>&1; then
     --scopes "https://www.googleapis.com/auth/projecthosting,https://www.googleapis.com/auth/devstorage.full_control,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/cloud-platform" \
     --zone ${ZONE} \
     --network ${NETWORK} || error_exit "Error creating Google Container Engine cluster"
+    --subnetwork ${SUBNETWORK}
   echo "done."
 else
   echo "* Google Container Engine cluster \"${CLUSTER_NAME}\" already exists..."
